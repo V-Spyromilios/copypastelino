@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>copyPastelino – Clipboard history for macOS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="copyPastelino is a tiny macOS menu bar app that gives you a fast clipboard history, triggered with Ctrl-V."
+  />
+
+  <style>
+    :root {
+      --bg: #fdf4f4;
+      --card: #ffffff;
+      --accent: #5d4aa8;
+      --accent-soft: rgba(93, 74, 168, 0.07);
+      --text: #1f1f28;
+      --muted: #6b6b7a;
+      --border: #f0dde0;
+      --shadow: 0 18px 40px rgba(18, 0, 36, 0.12);
+      --radius-lg: 24px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Helvetica Neue", Arial, sans-serif;
+      background: radial-gradient(circle at top left, #fff7f7, var(--bg));
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 40px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 960px;
+    }
+
+    /* Header / hero */
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #fdeeee, #f9e4ff);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    .app-name {
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .top-links {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .badge span {
+      font-size: 10px;
+    }
+
+    /* Main hero card */
+
+    .hero {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 26px 24px 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 24px;
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 4vw, 34px);
+      line-height: 1.1;
+      margin: 0 0 12px;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      margin: 0 0 18px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .btn-primary {
+      border-radius: var(--radius-pill);
+      border: none;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--accent);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(93, 74, 168, 0.25);
+    }
+
+    .btn-primary span {
+      font-size: 16px;
+    }
+
+    .btn-ghost {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      padding: 9px 14px;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .hero-note {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-note strong {
+      color: var(--accent);
+    }
+
+    /* Fake preview card */
+
+    .preview-card {
+      border-radius: 18px;
+      background: linear-gradient(145deg, #fdf6ff, #f0f4ff);
+      padding: 16px 14px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #e8dcff;
+    }
+
+    .menu-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #6d6d80;
+      margin-bottom: 12px;
+    }
+
+    .menu-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #e2cfef;
+    }
+
+    .preview-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .preview-item {
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .preview-item span.icon {
+      width: 18px;
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    .preview-item.active {
+      border: 1px solid rgba(93, 74, 168, 0.5);
+      box-shadow: 0 0 0 1px rgba(93, 74, 168, 0.25);
+    }
+
+    .preview-footer {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #7b7b92;
+    }
+
+    /* Sections */
+
+    .sections {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 2fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 820px) {
+      .sections {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .section-card {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+      font-size: 14px;
+    }
+
+    .section-card h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .section-card ul {
+      margin: 0;
+      padding-left: 18px;
+      list-style: none;
+    }
+
+    .section-card li {
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .section-card li::before {
+      content: "•";
+      position: absolute;
+      left: -12px;
+      color: var(--accent);
+      font-size: 16px;
+      line-height: 1;
+      top: 1px;
+    }
+
+    .section-meta {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 28px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <header class="top">
+        <div class="logo-wrap">
+          <div class="logo-circle">CP!</div>
+          <div class="app-name">copyPastelino</div>
+        </div>
+        <div class="top-links">
+          <div class="badge">
+            <span>●</span> macOS menu bar app
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div>
+            <h1 class="hero-title">
+              Clipboard history that appears when you press <span>Ctrl-V</span>.
+            </h1>
+            <p class="hero-subtitle">
+              copyPastelino quietly sits in your menu bar, remembers what you copy,
+              and lets you pick the right item with a small preview – all without
+              changing the way you paste.
+            </p>
+
+            <div class="hero-actions">
+              <!-- Replace YOUR_TESTFLIGHT_URL once the Mac App Store link is live -->
+              <a href="YOUR_TESTFLIGHT_URL" class="btn-primary">
+                <span>⬇︎</span> Get early access
+              </a>
+              <a href="#privacy" class="btn-ghost">
+                <span>🔒</span> Privacy first
+              </a>
+            </div>
+
+            <p class="hero-note">
+              Works on macOS 14+ · Global shortcut <strong>Ctrl + V</strong> ·
+              No accounts, no cloud.
+            </p>
+          </div>
+
+          <aside class="preview-card" aria-hidden="true">
+            <div class="menu-bar">
+              <div class="menu-dot"></div>
+              <div class="menu-dot"></div>
+              <div class="menu-dot"></div>
+              <span>copyPastelino · Ctrl-V preview</span>
+            </div>
+            <div class="preview-title">What to paste?</div>
+            <div class="preview-item active">
+              <span class="icon">📝</span>
+              <div>“Meeting notes – next steps for Q1 launch…”</div>
+            </div>
+            <div class="preview-item">
+              <span class="icon">🔗</span>
+              <div>https://example.com/campaign/share-link</div>
+            </div>
+            <div class="preview-item">
+              <span class="icon">🖼️</span>
+              <div>Screenshot 2025-12-11 at 12.34.56</div>
+            </div>
+            <div class="preview-footer">
+              Hold Ctrl and tap V to cycle – release to paste.
+            </div>
+          </aside>
+        </section>
+
+        <section class="sections">
+          <div class="section-card">
+            <h2>Why copyPastelino?</h2>
+            <ul>
+              <li><strong>Zero learning curve</strong> – keep using Cmd-C and Ctrl-V as usual.</li>
+              <li><strong>Fast preview</strong> – see the next item right next to your mouse.</li>
+              <li><strong>Understands rich content</strong> – text, links, images, PDFs, files.</li>
+              <li><strong>Stays out of your way</strong> – tiny menu bar app, no window clutter.</li>
+            </ul>
+
+            <div class="section-meta">
+              Built natively with Swift + SwiftData, no Electron, no background daemons.
+            </div>
+          </div>
+
+          <div class="section-card" id="privacy">
+            <h2>Privacy & data</h2>
+            <ul>
+              <li>Everything stays on your Mac – there is no server component.</li>
+              <li>Clipboard history is stored locally using Apple’s SwiftData.</li>
+              <li>You can clear all history at any time from the menu.</li>
+              <li>Accessibility and Input Monitoring are only used to:
+                detect the Ctrl-V shortcut and simulate paste on your behalf.
+              </li>
+            </ul>
+            <div class="section-meta">
+              Questions or feedback? Email
+              <a href="mailto:YOUR_EMAIL">YOUR_EMAIL</a>.
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        © <span id="year"></span> copyPastelino · Made with ☕ and Swift on macOS.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Set current year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
