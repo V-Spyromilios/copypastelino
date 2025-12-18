@@ -8,7 +8,12 @@
     name="description"
     content="copyPastelino is a tiny macOS menu bar app that gives you a fast clipboard history, triggered with Ctrl-V."
   />
-
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@900&display=swap"
+    rel="stylesheet"
+  />
   <style>
   :root {
     /* pulled from your icon */
@@ -85,8 +90,10 @@
     }
 
     .app-name {
-      font-weight: 700;
-      font-size: 18px;
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+        Consolas, "Liberation Mono", "Courier New", monospace;
+      font-weight: 900;
+      font-size: 22px;
     }
 
     .top-links {
@@ -340,7 +347,7 @@
       <header class="top">
           <div class="logo-wrap">
             <img
-              src="./img/copyPastelino_logo.png"
+              src="./img/copyPastelino_logo2.png"
               alt="copyPastelino logo"
               class="logo-mark"
             />
@@ -348,7 +355,7 @@
           </div>
         <div class="top-links">
           <div class="badge">
-            <span>●</span> macOS menu bar app
+            <span></span> macOS menu bar app
           </div>
         </div>
       </header>
@@ -362,12 +369,12 @@
             <p class="hero-subtitle">
               copyPastelino quietly sits in your menu bar, remembers what you copy,
               and lets you pick the right item with a small preview – all without
-              changing the way you paste.
+              changing the way you work.
             </p>
 
             <div class="hero-actions">
               <!-- Replace YOUR_TESTFLIGHT_URL once the Mac App Store link is live -->
-              <a href="YOUR_TESTFLIGHT_URL" class="btn-primary">
+              <a href="https://testflight.apple.com/join/e4mftjPjL" class="btn-primary">
                 <span>⬇︎</span> Get early access
               </a>
               <a href="#privacy" class="btn-ghost">
@@ -376,7 +383,7 @@
             </div>
 
             <p class="hero-note">
-              Works on macOS 14+ · Global shortcut <strong>Ctrl + V</strong> ·
+              Works on macOS 15+ · Global shortcut <strong>Ctrl + V</strong> ·
               No accounts, no cloud.
             </p>
           </div>
