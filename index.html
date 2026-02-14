@@ -16,7 +16,7 @@
   />
   <style>
   :root {
-    /* pulled from your icon */
+    /* pulled from the icon */
     --bg: #FDF5E8;          /* light cream */
     --card: #FFFDF7;        /* slightly brighter for cards */
     --accent: #8F887B;      /* taupe from logo */
@@ -115,6 +115,70 @@
 
     .badge span {
       font-size: 10px;
+    }
+
+    /* Privacy proof block */
+    .privacy-proof {
+      margin-top: 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.75);
+      padding: 10px 12px;
+    }
+
+    .privacy-proof summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+      list-style: none;
+      user-select: none;
+    }
+
+    .privacy-proof summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .privacy-proof summary::before {
+      content: "›";
+      display: inline-block;
+      margin-right: 8px;
+      transform: translateY(-1px);
+      color: var(--accent);
+    }
+
+    .privacy-proof[open] summary::before {
+      content: "⌄";
+    }
+
+    .codeblock {
+      margin: 10px 0 6px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(15, 12, 8, 0.06);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      overflow-x: auto;
+      white-space: pre;
+      color: var(--text);
+    }
+
+    .hint {
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      color: var(--muted);
+      font-size: 12px;
     }
 
     /* Main hero card */
@@ -433,16 +497,51 @@
           <div class="section-card" id="privacy">
             <h2>Privacy & data</h2>
             <ul>
-              <li>Everything stays on your Mac – there is no server component.</li>
+              <li><strong>Works fully offline.</strong> There is no server component.</li>
+              <li><strong>No accounts, no analytics, no tracking.</strong></li>
               <li>Clipboard history is stored locally using Apple’s SwiftData.</li>
               <li>You can clear all history at any time from the menu.</li>
-              <li>Accessibility and Input Monitoring are only used to:
+              <li>
+                Accessibility and Input Monitoring are only used to:
                 detect the Ctrl-V shortcut and simulate paste.
               </li>
             </ul>
+
             <div class="section-meta">
-                Questions or feedback?
-                <a href="mailto:evangelos@chillvibes.dev" title="Send me an email">Email</a>.
+              <span class="pill">🔒 No network requests</span>
+              <span class="pill">🗃️ Local storage</span>
+              <span class="pill">🧠 Your clipboard stays yours</span>
+            </div>
+
+            <details class="privacy-proof">
+              <summary>Power user proof: verify zero network connections</summary>
+
+              <p class="hint">
+                These checks are optional. They show whether the running app process has any TCP/UDP sockets
+                open or is sending/receiving network traffic.
+              </p>
+
+              <div class="codeblock"># 1) Find the PID (replace the name if needed)
+          pgrep -ix copyPastelino || pgrep -ix copyPaste
+
+          # Alternative:
+          ps aux | grep -i copyPastelino
+
+          # 2) Check open TCP/UDP sockets for that PID
+          lsof -n -P -iTCP -iUDP -a -p &lt;pid&gt;
+
+          # 3) Watch live traffic (TCP + UDP)
+          nettop -p &lt;pid&gt; -m tcp,udp</div>
+
+              <p class="hint">
+                Expected result: <strong>no TCP/UDP entries</strong> in <code>lsof</code> and <strong>0 bytes</strong>
+                in <code>nettop</code> while you use the app.
+              </p>
+            </details>
+
+            <div class="section-meta">
+              Questions or feedback?
+              <a href="mailto:evangelos@chillvibes.dev" title="Send me an email">Email</a>.
             </div>
           </div>
         </section>
