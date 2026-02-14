@@ -545,16 +545,16 @@
               </p>
 
               <div class="codeblock"># 1) Find the PID
-          pgrep -ix copyPastelino || pgrep -ix copyPaste
+              pgrep -ix copyPastelino || pgrep -ix copyPaste
 
-          # Alternative:
-          ps aux | grep -i copyPastelino
+              # Alternative:
+              ps aux | grep -i copyPastelino
 
-          # 2) Check open TCP/UDP sockets for that PID (If you see other processes, you forgot -a 😉)
-          lsof -n -P -iTCP -iUDP -a -p &lt;pid&gt;
+              # 2) Check open TCP/UDP sockets for that PID (If you see other processes, you forgot -a 😉)
+              lsof -n -P -iTCP -iUDP -a -p &lt;pid&gt;
 
-          # 3) Watch live traffic (TCP + UDP)
-          nettop -p &lt;pid&gt; -m tcp,udp</div>
+              # 3) Watch live traffic (TCP + UDP)
+              nettop -p &lt;pid&gt; -m tcp,udp</div>
 
               <p class="hint">
                 Expected result: <strong>no TCP/UDP entries</strong> in <code>lsof</code> and <strong>0 bytes</strong>
