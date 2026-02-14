@@ -148,7 +148,7 @@
       content: "⌄";
     }
 
-    .codeblock {
+    .codeblock{
       margin: 10px 0 6px;
       padding: 12px;
       border-radius: 12px;
@@ -158,9 +158,15 @@
       font-size: 12px;
       line-height: 1.45;
       overflow-x: auto;
-      white-space: pre;
       color: var(--text);
+
+      /* these two make <pre> behave nicely */
+      white-space: pre;
+      margin-left: 0;
     }
+
+    pre.codeblock { margin: 10px 0 6px; }
+    pre.codeblock code { display: block; }
 
     .hint {
       margin: 6px 0 0;
@@ -544,7 +550,7 @@
                 open or is sending/receiving network traffic.
               </p>
 
-              <div class="codeblock"># 1) Find the PID
+              <pre class="codeblock"><code># 1) Find the PID
               pgrep -ix copyPastelino || pgrep -ix copyPaste
 
               # Alternative:
@@ -554,7 +560,7 @@
               lsof -n -P -iTCP -iUDP -a -p &lt;pid&gt;
 
               # 3) Watch live traffic (TCP + UDP)
-              nettop -p &lt;pid&gt; -m tcp,udp</div>
+              nettop -p &lt;pid&gt; -m tcp,udp</code></pre>
 
               <p class="hint">
                 Expected result: <strong>no TCP/UDP entries</strong> in <code>lsof</code> and <strong>0 bytes</strong>
