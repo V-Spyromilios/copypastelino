@@ -594,7 +594,7 @@
               </p>
 
               <pre class="codeblock"><code># 1) Find the PID
-              pgrep -ix copyPastelino || pgrep -ix copyPaste
+              pgrep -ix copyPastelino
 
               # Alternative:
               ps aux | grep -i copyPastelino
@@ -627,9 +627,9 @@
               <div>
                 <ul>
                   <li><strong>Lightweight by design</strong> – menu bar app, minimal UI, no background daemons.</li>
-                  <li><strong>Low CPU when idle</strong> – the app mostly waits for your shortcut.</li>
+                  <li><strong>Low overhead in typical use</strong> – the app mostly waits for your shortcut.</li>
                   <li><strong>Memory stays predictable</strong> – history is stored locally and managed cleanly.</li>
-                  <li><strong>Measured with Instruments</strong> – screenshots below are real profiling runs.</li>
+                  <li><strong>Measured with Xcode Instruments</strong> – screenshots are real profiling runs.</li>
                 </ul>
 
                 <div class="section-meta">
@@ -644,13 +644,13 @@
               <!-- RIGHT: screenshot area -->
               <div class="screenshot-frame">
                 <!-- Replace with your real screenshots -->
-                <img src="./img/instruments-cpu.png" alt="Instruments CPU profiling screenshot" />
+                <img src="./img/instruments-memory_2.heic" alt="Instruments CPU profiling screenshot" />
                 <div class="screenshot-caption">
                   CPU profiling (Instruments). Replace <code>./img/instruments-cpu.png</code> with your screenshot path.
                 </div>
 
                 <!-- Optional second screenshot -->
-                <img src="./img/instruments-memory.png" alt="Instruments memory profiling screenshot" />
+                <img src="./img/instruments-memory_1.heic" alt="Instruments memory profiling screenshot" />
                 <div class="screenshot-caption">
                   Memory profiling (Instruments). Replace <code>./img/instruments-memory.png</code> with your screenshot path.
                 </div>
