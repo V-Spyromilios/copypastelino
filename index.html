@@ -382,6 +382,26 @@
       border: 1px solid rgba(93, 74, 168, 0.5);
       box-shadow: 0 0 0 1px rgba(93, 74, 168, 0.25);
     }
+    /* Embedded video inside the Privacy proof section */
+    .proof-video {
+      margin-top: 10px;
+    }
+
+    .proof-video-frame{
+      border-radius: 14px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+      aspect-ratio: 16 / 9;
+    }
+
+    .proof-video-frame iframe{
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+    }
 
     .preview-video-frame{
       border-radius: 14px;
@@ -586,8 +606,28 @@
             </div>
 
             <details class="privacy-proof">
-              <summary>Power user proof: verify zero network connections</summary>
+              <summary>Power user proof: verify zero network connections and traffic</summary>
 
+              <div class="proof-video">
+                <div class="proof-video-frame">
+                  <iframe
+                    src="https://www.youtube-nocookie.com/embed/-FnwTQfPuZo?rel=0&modestbranding=1&autoplay=0"
+                    title="copyPastelino – network proof (nettop)"
+                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                    loading="lazy"
+                  ></iframe>
+                </div>
+
+                <div class="video-links">
+                  <a class="video-link"
+                     href="https://youtu.be/-FnwTQfPuZo"
+                     target="_blank"
+                     rel="noopener noreferrer">
+                    ▶ Watch the proof video on YouTube
+                  </a>
+                </div>
+              </div>
               <p class="hint">
                 These checks are optional. They show whether the running app process has any TCP/UDP sockets
                 open or is sending/receiving network traffic.
