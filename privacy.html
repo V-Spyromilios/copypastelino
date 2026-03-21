@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Privacy Policy – copyPastelino</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Privacy Policy for copyPastelino, a macOS clipboard history app."
+  />
+  <style>
+    :root {
+      --bg: #FDF5E8;
+      --card: #FFFDF7;
+      --accent: #8F887B;
+      --text: #2F2920;
+      --muted: #7F776B;
+      --border: #D3CABD;
+      --shadow: 0 18px 40px rgba(62, 54, 45, 0.18);
+      --radius-lg: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Helvetica Neue", Arial, sans-serif;
+      background: radial-gradient(circle at top left, #ffffff, var(--bg));
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px 40px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 860px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 28px 24px;
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: clamp(28px, 4vw, 34px);
+    }
+
+    h2 {
+      margin-top: 28px;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    p, li {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="shell">
+      <div class="card">
+        <p><a href="./index.html">← Back to copyPastelino</a></p>
+
+        <h1>Privacy Policy</h1>
+        <p class="muted">Effective date: March 21, 2026</p>
+
+        <p>
+          copyPastelino is a macOS clipboard history app designed with privacy in mind.
+          This app works fully offline and does not use analytics, tracking, accounts,
+          or cloud sync.
+        </p>
+
+        <h2>What data copyPastelino collects</h2>
+        <p>
+          copyPastelino stores clipboard history locally on your Mac so the app can
+          show recent copied items and let you select one to paste. This data is not
+          sent to the developer or to any third party.
+        </p>
+
+        <h2>How your data is used</h2>
+        <p>
+          Clipboard history is used only to provide the app’s core functionality:
+          remembering copied items, showing previews, and allowing you to paste a
+          selected item.
+        </p>
+
+        <h2>Permissions</h2>
+        <p>
+          copyPastelino may request Accessibility and Input Monitoring permissions.
+          These permissions are used only to detect the keyboard shortcut, let you
+          cycle through clipboard history, and paste the selected item into the
+          active app.
+        </p>
+
+        <h2>Network access</h2>
+        <p>
+          copyPastelino has no server component and does not transmit your personal
+          data, clipboard history, or usage activity over the network.
+        </p>
+
+        <h2>Analytics and tracking</h2>
+        <p>
+          copyPastelino does not use analytics, advertising SDKs, third-party trackers,
+          or profiling tools that collect personal data from users.
+        </p>
+
+        <h2>Data sharing</h2>
+        <p>
+          No clipboard data or personal information is sold, shared, rented, or
+          disclosed to third parties by the app.
+        </p>
+
+        <h2>Data deletion</h2>
+        <p>
+          You can clear your clipboard history at any time from within the app. Since
+          data is stored locally on your Mac, removing the app and its local data
+          removes the stored clipboard history from your device.
+        </p>
+
+        <h2>Children’s privacy</h2>
+        <p>
+          copyPastelino is not directed to children and does not knowingly collect
+          personal information from children.
+        </p>
+
+        <h2>Changes to this Privacy Policy</h2>
+        <p>
+          This Privacy Policy may be updated from time to time. Any updates will be
+          posted on this page with a revised effective date.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          If you have questions about this Privacy Policy, you can contact:
+          <a href="mailto:evangelos@chillvibes.dev">evangelos@chillvibes.dev</a>
+        </p>
+
+        <footer>
+          © <span id="year"></span> copyPastelino
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
